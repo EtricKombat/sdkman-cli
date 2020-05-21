@@ -16,7 +16,7 @@
 #   limitations under the License.
 #
 
-function __sdk_help {
+function __sdk_help() {
 	__sdkman_echo_no_colour ""
 	__sdkman_echo_no_colour "Usage: sdk <command> [candidate] [version]"
 	__sdkman_echo_no_colour "       sdk offline <enable|disable>"
@@ -27,11 +27,13 @@ function __sdk_help {
 	__sdkman_echo_no_colour "       list      or ls   [candidate]"
 	__sdkman_echo_no_colour "       use       or u    <candidate> <version>"
 	__sdkman_echo_no_colour "       default   or d    <candidate> [version]"
+	__sdkman_echo_no_colour "       home      or h    <candidate> <version>"
+	__sdkman_echo_no_colour "       env       or e    [init]"
 	__sdkman_echo_no_colour "       current   or c    [candidate]"
 	__sdkman_echo_no_colour "       upgrade   or ug   [candidate]"
 	__sdkman_echo_no_colour "       version   or v"
 	__sdkman_echo_no_colour "       broadcast or b"
-	__sdkman_echo_no_colour "       help      or h"
+	__sdkman_echo_no_colour "       help"
 	__sdkman_echo_no_colour "       offline           [enable|disable]"
 	__sdkman_echo_no_colour "       selfupdate        [force]"
 	__sdkman_echo_no_colour "       update"

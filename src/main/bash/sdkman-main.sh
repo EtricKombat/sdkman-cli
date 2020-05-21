@@ -16,35 +16,54 @@
 #   limitations under the License.
 #
 
-function sdk {
+function sdk() {
 
 	COMMAND="$1"
 	QUALIFIER="$2"
 
 	case "$COMMAND" in
-		l)
-			COMMAND="list";;
-		ls)
-			COMMAND="list";;
-		h)
-			COMMAND="help";;
-		v)
-			COMMAND="version";;
-		u)
-			COMMAND="use";;
-		i)
-			COMMAND="install";;
-		rm)
-			COMMAND="uninstall";;
-		c)
-			COMMAND="current";;
-		ug)
-			COMMAND="upgrade";;
-		d)
-			COMMAND="default";;
-		b)
-			COMMAND="broadcast";;
+	l)
+		COMMAND="list"
+		;;
+	ls)
+		COMMAND="list"
+		;;
+	v)
+		COMMAND="version"
+		;;
+	u)
+		COMMAND="use"
+		;;
+	i)
+		COMMAND="install"
+		;;
+	rm)
+		COMMAND="uninstall"
+		;;
+	c)
+		COMMAND="current"
+		;;
+	ug)
+		COMMAND="upgrade"
+		;;
+	d)
+		COMMAND="default"
+		;;
+	b)
+		COMMAND="broadcast"
+		;;
+	h)
+		COMMAND="home"
+		;;
+	e)
+		COMMAND="env"
+		;;
 	esac
+
+	if [[ "$COMMAND" == "home" ]]; then
+		__sdk_home "$QUALIFIER" "$3"
+		return $?
+	fi
 
 	#
 	# Various sanity checks and default settings
@@ -97,7 +116,7 @@ function sdk {
 
 	# Check whether the candidate exists
 	local sdkman_valid_candidate=$(echo ${SDKMAN_CANDIDATES[@]} | grep -w "$QUALIFIER")
-	if [[ -n "$QUALIFIER" && "$COMMAND" != "offline" && "$COMMAND" != "flush" && "$COMMAND" != "selfupdate" && -z "$sdkman_valid_candidate" ]]; then
+	if [[ -n "$QUALIFIER" && "$COMMAND" != "offline" && "$COMMAND" != "flush" && "$COMMAND" != "selfupdate" && "$COMMAND" != "env" && -z "$sdkman_valid_candidate" ]]; then
 		echo ""
 		__sdkman_echo_red "Stop! $QUALIFIER is not a valid candidate."
 		return 1
