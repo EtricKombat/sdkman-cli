@@ -18,11 +18,11 @@
 
 # set env vars if not set
 if [ -z "$SDKMAN_VERSION" ]; then
-	export SDKMAN_VERSION="@SDKMAN_VERSION@"                            # kob install use this
+	export SDKMAN_VERSION="@SDKMAN_VERSION@"                            # How does the @SDKMAN_VERSION@ get replaced here?
 fi
 
 if [ -z "$SDKMAN_CANDIDATES_API" ]; then
-	export SDKMAN_CANDIDATES_API="@SDKMAN_CANDIDATES_API@"              # maybe kob install should use this
+	export SDKMAN_CANDIDATES_API="@SDKMAN_CANDIDATES_API@"              # how does "@SDKMAN_CANDIDATES_API@" get replaced with "https://api.sdkman.io/2/"
 fi
 
 if [ -z "$SDKMAN_DIR" ]; then
