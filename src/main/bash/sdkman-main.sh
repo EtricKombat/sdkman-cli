@@ -60,7 +60,7 @@ function sdk() {
 		;;
 	esac
 
-	if [[ "$COMMAND" == "home" ]]; then
+	if [[ "$COMMAND" == "home" ]]; then                      # maybe kob install should use this
 		__sdk_home "$QUALIFIER" "$3"
 		return $?
 	fi
@@ -69,20 +69,20 @@ function sdk() {
 	# Various sanity checks and default settings
 	#
 
-	# Check version and candidates cache
+	# Check version and candidates cache                                             #  kob install should use this
 	if [[ "$COMMAND" != "update" ]]; then
 		___sdkman_check_candidates_cache "$SDKMAN_CANDIDATES_CACHE" || return 1
 		___sdkman_check_version_cache
 	fi
 
-	# Always presume internet availability
+	# Always presume internet availability                                             # maybe kob install should use this
 	SDKMAN_AVAILABLE="true"
 	if [ -z "$SDKMAN_OFFLINE_MODE" ]; then
 		SDKMAN_OFFLINE_MODE="false"
 	fi
 
 	# ...unless proven otherwise
-	__sdkman_update_broadcast_and_service_availability
+	__sdkman_update_broadcast_and_service_availability                               # maybe kob install should use this
 
 	# Load the sdkman config if it exists.
 	if [ -f "${SDKMAN_DIR}/etc/config" ]; then
@@ -108,13 +108,13 @@ function sdk() {
 		CMD_FOUND="$CMD_TARGET"
 	fi
 
-	# couldn't find the command
+	# couldn't find the command                                 # is this using in kobman?
 	if [[ -z "$CMD_FOUND" ]]; then
 		echo "Invalid command: $COMMAND"
 		__sdk_help
 	fi
 
-	# Check whether the candidate exists
+	# Check whether the candidate exists                                                         # maybe kob install should use this
 	local sdkman_valid_candidate=$(echo ${SDKMAN_CANDIDATES[@]} | grep -w "$QUALIFIER")
 	if [[ -n "$QUALIFIER" && "$COMMAND" != "offline" && "$COMMAND" != "flush" && "$COMMAND" != "selfupdate" && "$COMMAND" != "env" && -z "$sdkman_valid_candidate" ]]; then
 		echo ""
@@ -122,7 +122,7 @@ function sdk() {
 		return 1
 	fi
 
-	# Validate offline qualifier
+	# Validate offline qualifier                                                                                  # use of this?
 	if [[ "$COMMAND" == "offline" && -n "$QUALIFIER" && -z $(echo "enable disable" | grep -w "$QUALIFIER") ]]; then
 		echo ""
 		__sdkman_echo_red "Stop! $QUALIFIER is not a valid offline mode."
@@ -137,7 +137,7 @@ function sdk() {
 	# Store the return code of the requested command
 	local final_rc=0
 
-	# Execute the requested command
+	# Execute the requested command                                                   ## modify this to more suiting 
 	if [ -n "$CMD_FOUND" ]; then
 		# It's available as a shell function
 		__sdk_"$CONVERTED_CMD_NAME" "$QUALIFIER" "$3" "$4"
