@@ -18,11 +18,11 @@
 
 # set env vars if not set
 if [ -z "$SDKMAN_VERSION" ]; then
-	export SDKMAN_VERSION="@SDKMAN_VERSION@"
+	export SDKMAN_VERSION="@SDKMAN_VERSION@"                            # kob install use this
 fi
 
 if [ -z "$SDKMAN_CANDIDATES_API" ]; then
-	export SDKMAN_CANDIDATES_API="@SDKMAN_CANDIDATES_API@"
+	export SDKMAN_CANDIDATES_API="@SDKMAN_CANDIDATES_API@"              # maybe kob install should use this
 fi
 
 if [ -z "$SDKMAN_DIR" ]; then
@@ -108,28 +108,28 @@ if [[ -z "${sdkman_curl_retry_max_time}" ]]; then sdkman_curl_retry_max_time=60;
 if [[ -z "${sdkman_curl_continue}" ]]; then sdkman_curl_continue=true; fi
 
 # Read list of candidates and set array
-SDKMAN_CANDIDATES_CACHE="${SDKMAN_DIR}/var/candidates"
-SDKMAN_CANDIDATES_CSV=$(<"$SDKMAN_CANDIDATES_CACHE")
-__sdkman_echo_debug "Setting candidates csv: $SDKMAN_CANDIDATES_CSV"
+SDKMAN_CANDIDATES_CACHE="${SDKMAN_DIR}/var/candidates"                                   # kob install should use this
+SDKMAN_CANDIDATES_CSV=$(<"$SDKMAN_CANDIDATES_CACHE")                                    # kob install should use this
+__sdkman_echo_debug "Setting candidates csv: $SDKMAN_CANDIDATES_CSV"                      # kob install should use this
 if [[ "$zsh_shell" == 'true' ]]; then
 	SDKMAN_CANDIDATES=(${(s:,:)SDKMAN_CANDIDATES_CSV})
 else
-	IFS=',' read -a SDKMAN_CANDIDATES <<< "${SDKMAN_CANDIDATES_CSV}"
+	IFS=',' read -a SDKMAN_CANDIDATES <<< "${SDKMAN_CANDIDATES_CSV}"                        # kob install should use this
 fi
 
-export SDKMAN_CANDIDATES_DIR="${SDKMAN_DIR}/candidates"
+export SDKMAN_CANDIDATES_DIR="${SDKMAN_DIR}/candidates"                                      # kob install should use this
 
-for candidate_name in "${SDKMAN_CANDIDATES[@]}"; do
+for candidate_name in "${SDKMAN_CANDIDATES[@]}"; do                                          # kob install should use this
 	candidate_dir="${SDKMAN_CANDIDATES_DIR}/${candidate_name}/current"
 	if [[ -h "$candidate_dir" || -d "${candidate_dir}" ]]; then
 		__sdkman_export_candidate_home "$candidate_name" "$candidate_dir"
 		__sdkman_prepend_candidate_to_path "$candidate_dir"
 	fi
 done
-unset candidate_name candidate_dir
-export PATH
+unset candidate_name candidate_dir                                                        # kob install should use this
+export PATH                                                                              # kob install should use this
 
-if [[ "$sdkman_auto_env" == "true" ]]; then
+if [[ "$sdkman_auto_env" == "true" ]]; then                                               # maybe kob install should use this
 	if [[ "$zsh_shell" == "true" ]]; then
 		function sdkman_auto_env() {
 			 [[ -f ".sdkmanrc" ]] && sdk env
