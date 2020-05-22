@@ -23,20 +23,20 @@ function __sdk_install() {
 	version="$2"
 	folder="$3"
 
-	__sdkman_check_candidate_present "$candidate" || return 1
-	__sdkman_determine_version "$candidate" "$version" "$folder" || return 1
+	__sdkman_check_candidate_present "$candidate" || return 1                             # how this works?
+	__sdkman_determine_version "$candidate" "$version" "$folder" || return 1                # how this works?
 
 	if [[ -d "${SDKMAN_CANDIDATES_DIR}/${candidate}/${VERSION}" || -L "${SDKMAN_CANDIDATES_DIR}/${candidate}/${VERSION}" ]]; then
 		echo ""
 		__sdkman_echo_red "Stop! ${candidate} ${VERSION} is already installed."
 		return 1
-	fi
+	fi                                                                                    # how this works?
 
-	if [[ ${VERSION_VALID} == 'valid' ]]; then
+	if [[ ${VERSION_VALID} == 'valid' ]]; then                                              # VERSION_VALID get its value (valid,invalid) from ?
 		__sdkman_determine_current_version "$candidate"
 		__sdkman_install_candidate_version "$candidate" "$VERSION" || return 1
 
-		if [[ "$sdkman_auto_answer" != 'true' && "$auto_answer_upgrade" != 'true' && -n "$CURRENT" ]]; then
+		if [[ "$sdkman_auto_answer" != 'true' && "$auto_answer_upgrade" != 'true' && -n "$CURRENT" ]]; then   # use of this? run it in sdkman and understand
 			__sdkman_echo_confirm "Do you want ${candidate} ${VERSION} to be set as default? (Y/n): "
 			read USE
 		fi
@@ -50,7 +50,7 @@ function __sdk_install() {
 
 		return 0
 	elif [[ "$VERSION_VALID" == 'invalid' && -n "$folder" ]]; then
-		__sdkman_install_local_version "$candidate" "$VERSION" "$folder" || return 1
+		__sdkman_install_local_version "$candidate" "$VERSION" "$folder" || return 1          # local candidate version get installation here
 	else
 		echo ""
 		__sdkman_echo_red "Stop! $1 is not a valid ${candidate} version."
